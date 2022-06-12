@@ -1,0 +1,9 @@
+---
+applications:
+- name: android-parking-system
+  memory: 1024M
+  host: android-parking-system
+  path: ./target/android-0.0.1.jar
+  buildpack: java_buildpack
+env:
+  JAVA_OPTS: -Djava.security.egd=file:///dev/urandom
