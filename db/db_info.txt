@@ -1,0 +1,56 @@
+1. db 테이블
+	- 회원정보 (회원번호(PK), 회원명, 회원차량번호, 회원아이디, 회원비밀번호)
+	- 주차장정보 (주차장번호(PK), 주차장명, 도로명주소, 시간당가격, 주차장위도, 주차장경도, 주차장이미지경로, 주차가능차량수, 예약가능여부)
+	- 예약정보 (예약번호(PK), 예약일시, 주차장번호(FK), 회원번호(FK), 주차장자리번호, 예약취소여부)
+
+2. 조회, 생성, 삭제 crud구현
+
+1. 회원 정보 관리 
+	- 회원가입
+	- 로그인
+	- 아이디 찾기
+	- 비밀번호 찾기 
+
+2. 예약 정보 관리
+	- 예약 목록 조회
+	- 예약 디테일 정보 조회
+	- 예약 하기 
+	- 예약 취소
+
+3. 주차장 정보 관리
+	- 주차장 목록 조회
+	- 주차장 디테일 정보 조회 
+
+
+CREATE TABLE `tb_member` (
+	`member_seq` INT(11) NOT NULL AUTO_INCREMENT COMMENT '회원번호',
+	`member_name` VARCHAR(50) NOT NULL COMMENT '회원명' COLLATE 'utf8mb4_unicode_ci',
+	`car_num` VARCHAR(200) NOT NULL COMMENT '회원차량번호' COLLATE 'utf8mb4_unicode_ci',
+	`member_id` VARCHAR(200) NOT NULL COMMENT '회원아이디' COLLATE 'utf8mb4_unicode_ci',
+	`password` VARCHAR(200) NOT NULL COMMENT '비밀번호' COLLATE 'utf8mb4_unicode_ci',
+	PRIMARY KEY (`member_seq`) USING BTREE
+) COLLATE='utf8mb4_unicode_ci' ENGINE=InnoDB;
+
+
+CREATE TABLE `tb_parking` (
+	`parking` INT(11) NOT NULL AUTO_INCREMENT,
+	`parking_name` VARCHAR(100) NOT NULL COLLATE 'utf8mb4_unicode_ci',
+	`parding_addr` VARCHAR(200) NOT NULL COLLATE 'utf8mb4_unicode_ci',
+	`fee` INT(11) NOT NULL,
+	`latitude` DOUBLE NOT NULL,
+	`longitude` DOUBLE NOT NULL,
+	`img_save_path` VARCHAR(400) NOT NULL COLLATE 'utf8mb4_unicode_ci',
+	`remain_cnt` INT(11) NOT NULL,
+	`is_res_yn` CHAR(1) NOT NULL DEFAULT 'Y' COLLATE 'utf8mb4_unicode_ci',
+	PRIMARY KEY (`parking`) USING BTREE
+) COLLATE='utf8mb4_unicode_ci' ENGINE=InnoDB;
+
+
+CREATE TABLE `tb_reserve` (
+	`reserve_seq` INT(11) NOT NULL AUTO_INCREMENT,
+	`member_seq` INT(11) NOT NULL,
+	`parking_seq` INT(11) NOT NULL,
+	`reg_dt` DATETIME NOT NULL,
+	`is_del_yn` CHAR(1) NOT NULL DEFAULT 'N' COLLATE 'utf8mb4_unicode_ci',
+	PRIMARY KEY (`reserve_seq`) USING BTREE
+) COLLATE='utf8mb4_unicode_ci' ENGINE=InnoDB;
