@@ -17,6 +17,6 @@ public interface ParkingMapper {
 	List<Parking> selectAllParking();
 	
 	// [2] 주차장 세부 정보 조회
-	@Select("Select * from tb_parking where parking_seq = #{parking_seq}")
+	@Select("SELECT * FROM tb_parking WHERE PARKING_SEQ = #{parking_seq}")
 	Parking selectDetailParking(@Param("parking_seq") int parking_seq);
 }

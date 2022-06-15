@@ -2,7 +2,6 @@ package com.example.android.controller.parking;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,16 +15,24 @@ import com.example.android.model.parking.Parking;
 public class ParkingController {
 
 	private ParkingMapper mapper;
-	
+
+	public ParkingController(ParkingMapper mapper) {
+		this.mapper = mapper;
+	}
+
 	// 주차장 목록 조회
 	@GetMapping("/list")
 	public List<Parking> selectAllParking() {
-		return mapper.selectAllParking();
+		List<Parking> parking_list = mapper.selectAllParking();
+		System.out.println(parking_list);
+		return parking_list;
 	}
 	
 	@GetMapping("/detail/{id}")
 	public Parking selectDtetailParking(@PathVariable("id") int parking_id) {
-		return mapper.selectDetailParking(parking_id);
+		Parking parking = mapper.selectDetailParking(parking_id);
+		System.out.println(parking);
+		return parking;
 	}
 	
 }

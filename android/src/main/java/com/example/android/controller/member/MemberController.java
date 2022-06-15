@@ -1,6 +1,5 @@
 package com.example.android.controller.member;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,11 +14,18 @@ import com.example.android.model.member.Member;
 public class MemberController {
 
 	private MemberMapper mapper;
-	
+
+	public MemberController(MemberMapper mapper) {
+		this.mapper = mapper;
+	}
+
 	// 회원가입
 	@PostMapping("/signup")
-	public int signup(@RequestBody Member member) {
-		return mapper.signup(member);
+	public int signup(@RequestParam("member_name") String member_name, 
+			@RequestParam("car_num") String car_num, 
+			@RequestParam("member_id") String member_id,
+			@RequestParam("pasword") String password) {
+		return mapper.signup(member_name, car_num, member_id, password);
 	}
 	
 	// 로그인

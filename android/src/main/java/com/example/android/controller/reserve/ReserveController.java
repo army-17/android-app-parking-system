@@ -2,11 +2,9 @@ package com.example.android.controller.reserve;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,6 +18,10 @@ public class ReserveController {
 
 	private ReserveMapper mapper;
 	
+	public ReserveController(ReserveMapper mapper) {
+		this.mapper = mapper;
+	}
+
 	@GetMapping("/list/{member_seq}")
 	public List<Reserve> selectAllReserve(@PathVariable("member_seq") int member_seq) {
 		return mapper.selectAllReserve(member_seq);
@@ -31,8 +33,9 @@ public class ReserveController {
 	}
 	
 	@PostMapping("/insert")
-	public int insertReserve(@RequestBody Reserve reserve) {
-		return mapper.inserReserve(reserve);
+	public int insertReserve(@RequestParam("member_seq") int member_seq, 
+			@RequestParam("parking_seq") int parking_seq) {
+		return mapper.inserReserve(member_seq, parking_seq);
 	}
 	
 	@PostMapping("/cancel")

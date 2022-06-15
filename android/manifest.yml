@@ -6,4 +6,4 @@ applications:
   path: ./target/android-0.0.1.jar
   buildpack: java_buildpack
 env:
-  JAVA_OPTS: -Djava.security.egd=file:///dev/urandom
+  JAVA_OPTS: -Djava.security.egd=file:///dev/urandom -Dlogging.level.cloudfoundry-client=DEBUG -Dlogging.level.reactor.ipc.netty=DEBUG
