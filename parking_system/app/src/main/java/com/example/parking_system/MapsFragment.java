@@ -128,7 +128,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
         mMap = googleMap;
 
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(37.568256, 126.897240), 15));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(37.340389, 126.733500), 13));
 
         //ui settings
         UiSettings uiSettings = mMap.getUiSettings();
@@ -139,7 +139,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
         Bundle bundle = getArguments();
 
         //TODO: fix
-//        try {
+        try {
             ArrayList<? extends com.example.parking_system.ParkingData> list = bundle.getParcelableArrayList("list");
 
             for (com.example.parking_system.ParkingData data : list) {
@@ -151,23 +151,14 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                         .title(data.getParking_name())
                         .icon(BitmapDescriptorFactory.fromResource(R.drawable.parking_resize)));
             }
-//        }
-//        catch (Exception e) {
-//            e.printStackTrace();
-//
-//        }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+
+        }
 
         uiSettings.setMyLocationButtonEnabled(true);
 
     }
 
 }
-
-/*
-2022-06-16 18:10:22.094 22953-23022/com.example.parking_system E/Google Maps Android API: Authorization failure.  Please see https://developers.google.com/maps/documentation/android-api/start for how to correctly set up the map.
-2022-06-16 18:10:22.098 22953-23022/com.example.parking_system E/Google Maps Android API: In the Google Developer Console (https://console.developers.google.com)
-    Ensure that the "Google Maps Android API v2" is enabled.
-    Ensure that the following Android Key exists:
-    	API Key: AIzaSyBpgCJW9twLskY4DfUxZs6RHMkJSGDzDrU
-    	Android Application (<cert_fingerprint>;<package_name>): BF:84:55:F1:C9:D1:94:29:BC:A6:26:07:AC:A6:01:83:11:15:A7:5B;com.example.parking_system
- */

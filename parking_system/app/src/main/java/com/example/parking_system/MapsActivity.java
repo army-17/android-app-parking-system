@@ -137,8 +137,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
         gMap = googleMap;
-        gMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
-        gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(37.568256, 126.897240), 15));
+        gMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(37.340389, 126.733500), 13));
         gMap.getUiSettings().setZoomControlsEnabled(true);
     }
 }
