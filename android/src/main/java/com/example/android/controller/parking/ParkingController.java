@@ -28,9 +28,9 @@ public class ParkingController {
 		return parking_list;
 	}
 	
-	@GetMapping("/detail/{id}")
-	public Parking selectDtetailParking(@PathVariable("id") int parking_id) {
-		Parking parking = mapper.selectDetailParking(parking_id);
+	@GetMapping("/detail/{seq}")
+	public Parking selectDtetailParking(@PathVariable("seq") int parking_seq) {
+		Parking parking = mapper.selectDetailParking(parking_seq);
 		System.out.println(parking);
 		return parking;
 	}

@@ -1,0 +1,96 @@
+-- url 및 파라미터 정리
+
+1. 회원 정보
+
+- 회원 가입
+
+url : https://android-parking-system.toast.paas-ta.com/member/signup
+
+param : 
+member_name (String)
+car_num (String)
+member_id (String)
+password (String)
+
+- 로그인
+
+url : https://android-parking-system.toast.paas-ta.com/member/login
+
+param : 
+member_id (String)
+password (String)
+
+return : member_seq (int)
+
+- 아이디 찾기 
+
+url : https://android-parking-system.toast.paas-ta.com/member/findId
+
+param : 
+member_name (String)
+car_num (String)
+
+return : member_id (String)
+
+- 비밀번호 찾기 
+
+url : https://android-parking-system.toast.paas-ta.com/member/findPwd
+
+param : 
+member_name (String)
+car_num (String)
+member_id (String)
+
+return : password (String)
+
+
+2. 주차장 정보 
+
+- 주차장 목록 조회
+
+url : https://android-parking-system.toast.paas-ta.com/parking/list
+
+return : List<Parking>
+
+
+- 주차장 세부 정보 조회 
+
+url : https://android-parking-system.toast.paas-ta.com/parking/detail/{seq}
+
+PathVariable param : parking_seq
+
+return : List<Parking>
+
+
+
+3. 예약 정보
+
+- 예약 목록 조회 (로그인한 사용자)
+
+url : https://android-parking-system.toast.paas-ta.com/reverse/list/{member_seq}
+
+PathVariable param : member_seq
+
+return : List<Reverse>
+
+
+- 예약 상세 정보 조회
+
+url : https://android-parking-system.toast.paas-ta.com/reverse/detail/{reverse_seq}
+
+PathVariable param : reverse_seq
+param : member_seq (int)
+
+return : Reverse
+
+- 예약 하기 
+
+url : https://android-parking-system.toast.paas-ta.com/reverse/insert
+
+param : member_seq (int), parking_seq (int)
+
+- 예약 취소 
+
+url : https://android-parking-system.toast.paas-ta.com/reverse/cancel
+
+param : reverse_seq (int)

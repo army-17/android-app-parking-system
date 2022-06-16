@@ -23,7 +23,7 @@ public interface ReserveMapper {
 	Reserve selectDetailReserve(@Param("reserve_seq") int reserve_seq, @Param("member_seq") int member_seq);
 	
 	// [3] 예약 등록
-	@Insert("INSERT INTO tb_reserve VALUES(#{member_seq}, #{parking_seq}, NOW())")
+	@Insert("INSERT INTO tb_reserve (member_seq, parking_seq, reg_dt, is_del_yn) VALUES(#{member_seq}, #{parking_seq}, NOW(), 'N')")
 	int inserReserve(@Param("member_seq") int member_seq, @Param("parking_seq") int parking_seq);
 
 	// [4] 예약 취소

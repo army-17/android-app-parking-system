@@ -21,11 +21,11 @@ public class MemberController {
 
 	// 회원가입
 	@PostMapping("/signup")
-	public int signup(@RequestParam("member_name") String member_name, 
+	public void signup(@RequestParam("member_name") String member_name, 
 			@RequestParam("car_num") String car_num, 
 			@RequestParam("member_id") String member_id,
-			@RequestParam("pasword") String password) {
-		return mapper.signup(member_name, car_num, member_id, password);
+			@RequestParam("password") String password) {
+		mapper.signup(member_name, car_num, member_id, password);
 	}
 	
 	// 로그인
