@@ -45,36 +45,35 @@
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
+        app:layout_constraintTop_toBottomOf="@+id/findId_Name" />
 
     <EditText
-        android:id="@+id/editCar"
+        android:id="@+id/findId_Car"
         android:layout_width="291dp"
         android:layout_height="43dp"
         android:layout_marginStart="49dp"
-        android:layout_marginEnd="72dp"
+        android:layout_marginEnd="71dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView12" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/findMemberId"
         android:layout_width="83dp"
         android:layout_height="45dp"
         android:layout_marginStart="161dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="28dp"
         android:layout_marginEnd="162dp"
         android:text="확인"
         android:textColor="#2F2F2F"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.6"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editCar" />
+        app:layout_constraintTop_toBottomOf="@+id/findId_Car" />
 
     <Button
         android:id="@+id/button5"
@@ -88,21 +87,21 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView15"
+        android:id="@+id/findId_Result"
         android:layout_width="333dp"
         android:layout_height="46dp"
         android:layout_marginStart="39dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="39dp"
         android:gravity="center"
-        android:text="TextView"
+        android:text="확인창"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button4" />
+        app:layout_constraintTop_toBottomOf="@+id/findMemberId" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName"
+        android:id="@+id/findId_Name"
         android:layout_width="291dp"
         android:layout_height="43dp"
         android:layout_marginStart="49dp"
