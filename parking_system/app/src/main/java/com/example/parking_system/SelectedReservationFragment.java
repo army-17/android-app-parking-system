@@ -1,3 +1,5 @@
+//TODO: from ReservationCurrentMenuActivity, popout selected reservation on onClick ListView
+
 package com.example.parking_system;
 
 import android.os.Bundle;

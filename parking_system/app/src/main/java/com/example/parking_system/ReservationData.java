@@ -5,34 +5,40 @@ import android.os.Parcelable;
 
 public class ReservationData implements Parcelable {
     
-    private int reservationId;
-    private double latitude;
-    private double longitude;
-    private String name;
+    private int memberId;
+    private int reservationId; //reserve/reserve_seq
+    private double latitude; //parking/
+    private double longitude; //parking/
+    private String name; //member/member_name
     private String image;
-    private String date;
-    private String time;
+    private String date; //
+    private String startTime; //
+    private String endTime;
     private String lotcode;
     private String barcode;
     
     public ReservationData(
-             int reservationId,
-             double latitude,
-             double longitude,
-             String name,
-             String image,
-             String date,
-             String time,
-             String lotcode,
-             String barcode) {
-        
+            int memberId,
+            int reservationId,
+            double latitude,
+            double longitude,
+            String name,
+            String image,
+            String date,
+            String startTime,
+            String endTime,
+            String lotcode,
+            String barcode) {
+
+        this.memberId = memberId;
         this.reservationId = reservationId;
         this.latitude = latitude;
         this.longitude = longitude;
         this.name = name;
         this.image = image;
         this.date = date;
-        this.time = time;
+        this.startTime = startTime;
+        this.endTime = endTime;
         this.lotcode = lotcode;
         this.barcode = barcode;
         
@@ -40,13 +46,15 @@ public class ReservationData implements Parcelable {
     
     protected ReservationData(Parcel in) {
 
+        memberId = in.readInt();
         reservationId = in.readInt(); 
         latitude = in.readDouble(); 
         longitude = in.readDouble(); 
         name = in.readString(); 
         image = in.readString(); 
         date = in.readString(); 
-        time = in.readString(); 
+        startTime = in.readString();
+        endTime = in.readString();
         lotcode = in.readString(); 
         barcode = in.readString(); 
         
@@ -65,6 +73,8 @@ public class ReservationData implements Parcelable {
     };
     
     //get, sets
+    public int getMemberId() { return memberId; }
+    public void setMemberId(int memberId) { this.memberId = memberId; }
     public int getReservationId() {
         return reservationId;
     }
@@ -101,12 +111,14 @@ public class ReservationData implements Parcelable {
     public void setDate(String date) {
         this.date = date;
     }    
-    public String getTime() {
-        return time;
+    public String getStartTime() {
+        return startTime;
     }
-    public void setTime(String time) {
-        this.time = time;
-    }    
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
+    public String getEndTime() { return endTime; }
+    public void setEndTime(String endTime) { this.endTime = endTime; }
     public String getLotcode() {
         return lotcode;
     }
@@ -129,13 +141,15 @@ public class ReservationData implements Parcelable {
     @Override
     public void writeToParcel(Parcel parcel, int i) {
 
+        parcel.writeInt(memberId);
         parcel.writeInt(reservationId);
         parcel.writeDouble(latitude);
         parcel.writeDouble(longitude);
         parcel.writeString(name);
         parcel.writeString(image);
         parcel.writeString(date);
-        parcel.writeString(time);
+        parcel.writeString(startTime);
+        parcel.writeString(endTime);
         parcel.writeString(lotcode);
         parcel.writeString(barcode);
         
