@@ -4,11 +4,16 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -20,9 +25,11 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class MapsFragment extends Fragment implements OnMapReadyCallback {
@@ -52,6 +59,8 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
         View view = inflater.inflate(R.layout.fragment_maps, null);
         mapView = (MapView)view.findViewById(R.id.map);
         mapView.getMapAsync(this);
+
+        //Button reserveButton = (Button) view.findViewById(R.id.reserveButton);
 
         return view;
     }
@@ -134,19 +143,19 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
         UiSettings uiSettings = mMap.getUiSettings();
         uiSettings.setZoomControlsEnabled(true);
         uiSettings.setMapToolbarEnabled(true);
+        uiSettings.setMyLocationButtonEnabled(true);
 
-        //TODO: ParkingData
         Bundle bundle = getArguments();
 
-        //TODO: fix
         try {
             ArrayList<? extends com.example.parking_system.ParkingData> list = bundle.getParcelableArrayList("list");
 
             for (com.example.parking_system.ParkingData data : list) {
 
                 LatLng latlng = new LatLng(data.getLatitude(), data.getLongitude());
-                mMap.addMarker(new MarkerOptions()
-                        .snippet(data.getImg_save_path())
+                Marker marker = mMap.addMarker(new MarkerOptions()
+                        //.snippet(data.getImg_save_path()) //disabled until image is figured out
+                        .snippet("예약하시려면 누르십시오")
                         .position(latlng)
                         .title(data.getParking_name())
                         .icon(BitmapDescriptorFactory.fromResource(R.drawable.parking_resize)));
@@ -157,8 +166,47 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
 
         }
 
-        uiSettings.setMyLocationButtonEnabled(true);
+        mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+            @Override
+            public void onInfoWindowClick(@NonNull Marker marker) {
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+
+                alertDialogBuilder
+                        .setTitle(R.string.reserve_dialog_title)
+                        .setMessage(R.string.reserve_dialog_box)
+                        .setPositiveButton(R.string.reserve_yes, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+//                                Bundle bundle = new Bundle();
+//                                bundle.putString("parking_name", marker.getTitle().toString());
+//                                bundle.putString("latlng", marker.getPosition().toString());
+                                //bundle.putString("img_save_path", marker.getSnippet());
+                                //이 두개를 예약화면에서 주차장DB에 대조해서 주차장 정보를 새로 불러냅니다
+                                //데이터를 마커에 저장할 수 있는 방법을 아시면 마커에 번들 저장 등의 방법으로 재구축
+
+                                Intent intent = new Intent(getActivity(), ReserveActivity.class);
+                                intent.putExtra("parking_name", marker.getTitle().toString());
+                                intent.putExtra("latlng", marker.getPosition().toString());
+                                startActivity(intent);
+                            }
+                        })
+                        .setNegativeButton(R.string.reserve_no, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                            }
+                        });
+
+                AlertDialog reserveDialog = alertDialogBuilder.create();
+
+                reserveDialog.show();
+
+            }
+        });
 
     }
+
+
 
 }
