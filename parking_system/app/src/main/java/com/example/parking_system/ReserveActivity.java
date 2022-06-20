@@ -25,6 +25,7 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.SimpleDateFormat;
@@ -33,6 +34,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
+import java.util.Random;
 
 public class ReserveActivity extends AppCompatActivity {
 
@@ -41,11 +43,11 @@ public class ReserveActivity extends AppCompatActivity {
     String parking_name, latlngString, MapTaskTestString;
     TextView parking_nameText, feeText, latlngtest, MapTaskTest;
     List<com.example.parking_system.ParkingData> parkingData;
-    int fee;
+    int fee, parking_seq;
     String totalFee;
 
     //member
-    int memberId;
+    int member_seq = 7; // TODO: member_seq here, temp placeholder 7
     String member_name, car_num;
     TextView member_nameText, car_numText;
 
@@ -53,7 +55,7 @@ public class ReserveActivity extends AppCompatActivity {
     int yearSelected, monthSelected, daySelected;
     int startHourSelected, startMinuteSelected;
     int durationSelected;
-    String startDate, endDate, formattedStartDate, formattedEndDate;
+    String startDate, endDate, formattedStartDate, formattedEndDate, lotcode;
     boolean dateFlag = false, startTimeFlag = false, durationFlag = false;
     Button dateButton, startTimeButton, durationButton;
     TextView dateText, startTimeText, durationText, totalDuration;
@@ -62,6 +64,7 @@ public class ReserveActivity extends AppCompatActivity {
     NumberPicker durationPicker;
 
     Button reserveButton;
+    String reserveStartDate, reserveStartTime, reserveEndDate, reserveEndTime;
 
 
 
@@ -83,6 +86,8 @@ public class ReserveActivity extends AppCompatActivity {
         reserveButton = findViewById(R.id.reserveButton);
 
         SimpleDateFormat format1 = new SimpleDateFormat("yyyy년 MM월 dd일, HH시 mm분");
+        SimpleDateFormat yMd = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat Hm = new SimpleDateFormat("HH:mm");
 
         // GET JSON ParkingDB
         List<com.example.parking_system.ParkingData> parkingData = new ArrayList<ParkingData>();
@@ -221,6 +226,7 @@ public class ReserveActivity extends AppCompatActivity {
                     MapTaskTestString = "Yes";
                     // TODO: get fee
                     fee = data.getFee();
+                    parking_seq = data.getParking_seq();
                     String logFee = Integer.toString(fee);
                     Log.d("fee", logFee);
                     break;
@@ -305,15 +311,24 @@ public class ReserveActivity extends AppCompatActivity {
                         calendar.set(yearSelected, monthSelected, daySelected, startHourSelected, startMinuteSelected);
 
                         formattedStartDate = format1.format(calendar.getTime());
+                        reserveStartDate = yMd.format(calendar.getTime());
+                        reserveStartTime = Hm.format(calendar.getTime());
 
                         startDate = calendar.getTime().toString();
                         Log.d("startDate", startDate);
+                        Log.d("reserve", reserveStartDate);
+                        Log.d("reserve", reserveStartTime);
 
                         calendar.add(Calendar.HOUR_OF_DAY, durationSelected);
-                        endDate = calendar.getTime().toString();
-                        Log.d("endDate", endDate);
 
                         formattedEndDate = format1.format(calendar.getTime());
+                        reserveEndDate = yMd.format(calendar.getTime());
+                        reserveEndTime = Hm.format(calendar.getTime());
+
+                        endDate = calendar.getTime().toString();
+                        Log.d("endDate", endDate);
+                        Log.d("reserve", reserveEndDate);
+                        Log.d("reserve", reserveEndTime);
 
                         String totalDurationText = "시작: " + formattedStartDate + '\n' + "종료: " + formattedEndDate;
 
@@ -350,15 +365,24 @@ public class ReserveActivity extends AppCompatActivity {
                        calendar.set(yearSelected, monthSelected, daySelected, startHourSelected, startMinuteSelected);
 
                        formattedStartDate = format1.format(calendar.getTime());
+                       reserveStartDate = yMd.format(calendar.getTime());
+                       reserveStartTime = Hm.format(calendar.getTime());
 
                        startDate = calendar.getTime().toString();
                        Log.d("startDate", startDate);
+                       Log.d("reserve", reserveStartDate);
+                       Log.d("reserve", reserveStartTime);
 
                        calendar.add(Calendar.HOUR_OF_DAY, durationSelected);
-                       endDate = calendar.getTime().toString();
-                       Log.d("endDate", endDate);
 
                        formattedEndDate = format1.format(calendar.getTime());
+                       reserveEndDate = yMd.format(calendar.getTime());
+                       reserveEndTime = Hm.format(calendar.getTime());
+
+                       endDate = calendar.getTime().toString();
+                       Log.d("endDate", endDate);
+                       Log.d("reserve", reserveEndDate);
+                       Log.d("reserve", reserveEndTime);
 
                        String totalDurationText = "시작: " + formattedStartDate + '\n' + "종료: " + formattedEndDate;
 
@@ -399,15 +423,24 @@ public class ReserveActivity extends AppCompatActivity {
                        calendar.set(yearSelected, monthSelected, daySelected, startHourSelected, startMinuteSelected);
 
                        formattedStartDate = format1.format(calendar.getTime());
+                       reserveStartDate = yMd.format(calendar.getTime());
+                       reserveStartTime = Hm.format(calendar.getTime());
 
                        startDate = calendar.getTime().toString();
                        Log.d("startDate", startDate);
+                       Log.d("reserve", reserveStartDate);
+                       Log.d("reserve", reserveStartTime);
 
                        calendar.add(Calendar.HOUR_OF_DAY, durationSelected);
-                       endDate = calendar.getTime().toString();
-                       Log.d("endDate", endDate);
 
                        formattedEndDate = format1.format(calendar.getTime());
+                       reserveEndDate = yMd.format(calendar.getTime());
+                       reserveEndTime = Hm.format(calendar.getTime());
+
+                       endDate = calendar.getTime().toString();
+                       Log.d("endDate", endDate);
+                       Log.d("reserve", reserveEndDate);
+                       Log.d("reserve", reserveEndTime);
 
                        String totalDurationText = "시작: " + formattedStartDate + '\n' + "종료: " + formattedEndDate;
 
@@ -421,9 +454,73 @@ public class ReserveActivity extends AppCompatActivity {
            }
        });
 
+       //            int memberId, //member_seq?
+        //            int reservationId,
+        //            double latitude,
+        //            double longitude,
+        //            String name,
+        //            String image,
+        //            String date,
+        //            String startTime,
+        //            String endTime,
+        //            String lotcode,
+        //            String barcode
+
+        // int reserve_seq = (auto-gen at upload)
+
+        // int member_seq = from static value from login
+        // int parking_seq = parking_seq
+        // int total_fee = String totalFee
+        // String parking_name = parking_name
+        // String lotcode = java.util.random
+        // String reserve_start_date = yMd startDate
+        // String reserve_start_time = Hm startDate
+        // String reserve_end_date = yMd endDate
+        // String reserve_end_time = Hm endTime
+
        reserveButton.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View view) {
+
+               try {
+
+                   if (dateFlag == true && startTimeFlag == true && durationFlag == true) {
+
+                       //random, lotcode
+                       Random random = new Random();
+                       int lotAlphabetSeed = random.nextInt(6) +65;
+                       char lotAlphabet = (char) lotAlphabetSeed;
+                       int lotNumber = random.nextInt(20) + 1;
+                       lotcode = Character.toString(lotAlphabet) + Integer.toString(lotNumber);
+                       Log.d("random", lotcode);
+
+                       String[] params = new String[9];
+                       params[0] = Integer.toString(member_seq);
+                       params[1] = Integer.toString(parking_seq);
+                       params[2] = totalFee;
+                       params[3] = parking_name;
+                       params[4] = lotcode;
+                       params[5] = reserveStartDate;
+                       params[6] = reserveStartTime;
+                       params[7] = reserveEndDate;
+                       params[8] = reserveEndTime;
+
+                       String rst = String.valueOf(new ReserveTask().execute(params).get());
+                       Log.d("rst", String.valueOf(params));
+
+                       // TODO: test after backend fix
+
+                       // TODO:
+                       //  Intent intent = new Intent(getApplicationContext(), ReservationMainMenu.class);
+                       //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                       //startActivity(intent);
+                   }
+
+               }
+               catch (Exception e) {
+                   Toast.makeText(getApplicationContext(),"예약 신청 에러", Toast.LENGTH_SHORT).show();
+                   e.printStackTrace();
+               }
 
            }
        });
@@ -460,6 +557,67 @@ public class ReserveActivity extends AppCompatActivity {
             return receiveMsg;
         }
 
+    }
+
+    public class ReserveTask extends AsyncTask<String, Void, String> {
+
+        String sendMsg = "", receiveMsg;
+        String serverIp = "https://android-parking-system.toast.paas-ta.com/reserve/list/";
+
+        @Override
+        protected String doInBackground(String... params) {
+            try {
+
+                String str;
+
+                // TODO: Note that url already contains member_seq, and params[0] is also member_seq
+                // int member_seq = from static value from login
+                // int parking_seq = parking_seq
+                // int total_fee = String totalFee
+                // String parking_name = parking_name
+                // String lotcode = java.util.random
+                // String reserve_start_date = yMd startDate
+                // String reserve_start_time = Hm startDate
+                // String reserve_end_date = yMd endDate
+                // String reserve_end_time = Hm endTime
+                serverIp +=(
+                        params[0] // params[0] is member_seq
+                        +"?parking_seq=" + params[1]
+                        +"&total_fee=" + params[2]
+                        +"&parking_name=" + params[3]
+                        +"&lotcode=" + params[4]
+                        +"&reserve_start_date=" + params[5]
+                        +"&reserve_start_time=" + params[6]
+                        +"&reserve_end_date=" + params[7]
+                        +"&reserve_end_time=" + params[8]
+                        );
+
+                URL url = new URL(serverIp);
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                conn.setRequestMethod("PUT"); //use "POST" for append
+                OutputStreamWriter osw = new OutputStreamWriter(conn.getOutputStream());
+                osw.write(sendMsg);
+                osw.flush();
+                if(conn.getResponseCode() == conn.HTTP_OK) {
+                    InputStreamReader tmp = new InputStreamReader(conn.getInputStream(), "UTF-8");
+                    BufferedReader reader = new BufferedReader(tmp);
+                    StringBuffer buffer = new StringBuffer();
+                    while ((str = reader.readLine()) != null) {
+                        buffer.append(str);
+                    }
+                    receiveMsg = buffer.toString();
+                    Log.d("receive", buffer.toString());
+                } else {
+                    Log.i("통신 결과", conn.getResponseCode()+"에러");
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            return receiveMsg;
+        }
     }
 
 //    public class MemberTask extends AsyncTask<Void, Void, String> {
