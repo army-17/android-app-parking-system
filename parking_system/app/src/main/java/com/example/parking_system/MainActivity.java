@@ -131,19 +131,17 @@ public class MainActivity extends AppCompatActivity {
 
                     LogedMemberSeq.setLogin_member_seq(sequence);
                     Log.d("LogedMemberSeq", Integer.toString(LogedMemberSeq.getLogin_member_seq()));
-//                    Integer member_Seq = LogedMemberSeq.getLogin_member_seq();
-//
-//                    String sequence4 = String.valueOf(member_Seq);
-//                    Log.d("dddd",sequence4);
+                    Integer member_Seq = LogedMemberSeq.getLogin_member_seq();
 
-                    if(rst ==null ){
-                        Toast.makeText(getApplicationContext(),"해당 아이디로 로그인할 수 없습니다!", Toast.LENGTH_SHORT).show();
+                    //String sequence4 = String.valueOf(member_Seq);
+                    //Log.d("dddd",sequence4);
 
-                  } else{
+                    if(LogedMemberSeq.getLogin_member_seq() != 0 ){
                         Intent intent2 = new Intent(getApplicationContext(), ReservationMainMenu.class);
                         intent2.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent2);
-
+                  } else{
+                        Toast.makeText(getApplicationContext(),"해당 아이디로 로그인할 수 없습니다!", Toast.LENGTH_SHORT).show();
                     }
 
                 } catch (Exception e){
@@ -194,7 +192,9 @@ public class MainActivity extends AppCompatActivity {
                     }
                     receiveMsg = buffer.toString();
                 } else {
+                    receiveMsg="0";
                     Log.i("통신 결과", conn.getResponseCode() + "에러");
+
                 }
 
             } catch (Exception e) {
