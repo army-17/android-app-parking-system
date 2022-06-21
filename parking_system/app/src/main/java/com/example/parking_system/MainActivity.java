@@ -131,9 +131,7 @@ public class MainActivity extends AppCompatActivity {
                     Log.d("LogedMemberSeq", Integer.toString(LogedMemberSeq.getLogin_member_seq()));
                     int temp = LogedMemberSeq.getLogin_member_seq();
 
-                    if(LogedMemberSeq.getLogin_member_seq() != 0 ){
-
-       
+                    if(LogedMemberSeq.getLogin_member_seq() != 0 ){    
                         Intent intent2 = new Intent(getApplicationContext(), ReservationMainMenu.class);
                         intent2.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent2);
@@ -189,7 +187,9 @@ public class MainActivity extends AppCompatActivity {
                     }
                     receiveMsg = buffer.toString();
                 } else {
+
                     receiveMsg="0";
+
                     Log.i("통신 결과", conn.getResponseCode() + "에러");
 
                 }
