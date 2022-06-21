@@ -120,7 +120,10 @@ public class MainActivity extends AppCompatActivity {
 
                     Log.d("member", rst);
                     JSONObject json = new JSONObject(rst);
-                    int member_seq = Integer.parseInt(json.getString("member_seq"));
+                  
+                    LogedMemberSeq member = new LogedMemberSeq();
+                    member.login_member_seq = member_seq;
+
 
                 } catch (Exception e){
                     e.printStackTrace();
