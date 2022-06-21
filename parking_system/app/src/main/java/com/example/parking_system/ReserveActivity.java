@@ -294,10 +294,10 @@ public class ReserveActivity extends AppCompatActivity {
         datePicker.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int year, int month, int day) {
-                // note: month requires +1
+                // note: month requires +1 not really, why?
 
                 yearSelected = year;
-                monthSelected = month+1;
+                monthSelected = month;
                 daySelected = day;
 
                 String selectedDate = year + "년 " + (month+1) + "월 " + day + "일";

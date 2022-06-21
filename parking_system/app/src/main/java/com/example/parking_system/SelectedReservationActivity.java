@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,6 +39,8 @@ public class SelectedReservationActivity extends AppCompatActivity {
             reserve_start_time,
             reserve_end_date,
             reserve_end_time;
+
+    Intent intent;
 
     //                        parking_seq,
     //                        parking_name,
@@ -183,6 +186,12 @@ public class SelectedReservationActivity extends AppCompatActivity {
                     lng = listParkingData.get(i).getLongitude();
                     latlng = new LatLng(lat, lng);
 
+                    intent = new Intent(getApplicationContext(),  CurrentMapsActivity.class);
+                    String sendParking_seq = parking_seqDB;
+                    Log.d("intent", sendParking_seq);
+                    intent.putExtra("parking_seq", sendParking_seq);
+                    Log.d("intent", intent.getStringExtra(sendParking_seq));
+
                     break;
 
                 }
@@ -209,9 +218,23 @@ public class SelectedReservationActivity extends AppCompatActivity {
         selectedEndTimeText.setText("종료 시간: " +reserve_end_time);
         selectedTotalFeeText.setText(total_fee + " 원");
 
+        Intent finalIntent = intent;
+        buttonSeeMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+                startActivity(finalIntent);
+
+
+            }
+        });
+
     }
 
-    //TODO: buttons: mapfrag, cancel
+    //TODO: buttons: cancel
+
+
 
     public class Task extends AsyncTask<Void, Void, String> {
 

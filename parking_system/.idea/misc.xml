@@ -16,11 +16,13 @@
         <entry key="..\:/Android_TermProject/android-parking-system/parking_system/app/src/main/res/layout/fragment_login.xml" value="0.2938634399308557" />
         <entry key="..\:/Android_TermProject/android-parking-system/parking_system/app/src/main/res/layout/fragment_selected_reservation.xml" value="0.35190217391304346" />
         <entry key="..\:/Android_TermProject/android-parking-system/parking_system/app/src/main/res/layout/reservation_main_menu.xml" value="0.35190217391304346" />
-        <entry key="..\:/Users/Do Kim/AndroidStudioProjects/android-parking-system/parking_system/app/src/main/res/layout/activity_maps.xml" value="0.35989583333333336" />
+        <entry key="..\:/Users/Do Kim/AndroidStudioProjects/android-parking-system/parking_system/app/src/main/res/layout/activity_current_maps.xml" value="0.1" />
+        <entry key="..\:/Users/Do Kim/AndroidStudioProjects/android-parking-system/parking_system/app/src/main/res/layout/activity_maps.xml" value="0.1" />
         <entry key="..\:/Users/Do Kim/AndroidStudioProjects/android-parking-system/parking_system/app/src/main/res/layout/activity_reservation_current_menu.xml" value="0.18385416666666668" />
         <entry key="..\:/Users/Do Kim/AndroidStudioProjects/android-parking-system/parking_system/app/src/main/res/layout/activity_reservation_main_menu.xml" value="0.35989583333333336" />
         <entry key="..\:/Users/Do Kim/AndroidStudioProjects/android-parking-system/parking_system/app/src/main/res/layout/activity_reserve.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/Do Kim/AndroidStudioProjects/android-parking-system/parking_system/app/src/main/res/layout/activity_selected_reservation.xml" value="0.32222222222222224" />
+        <entry key="..\:/Users/Do Kim/AndroidStudioProjects/android-parking-system/parking_system/app/src/main/res/layout/fragment_current_maps.xml" value="0.1" />
         <entry key="..\:/Users/Do Kim/AndroidStudioProjects/android-parking-system/parking_system/app/src/main/res/layout/fragment_maps.xml" value="0.35989583333333336" />
         <entry key="..\:/Users/Do Kim/AndroidStudioProjects/android-parking-system/parking_system/app/src/main/res/layout/fragment_selected_reservation.xml" value="0.18385416666666668" />
         <entry key="..\:/Users/Do Kim/AndroidStudioProjects/android-parking-system/parking_system/app/src/main/res/layout/reservation_main_menu.xml" value="0.18385416666666668" />
@@ -33,7 +35,6 @@
         <entry key="..\:/Users/SQA/AndroidStudioProjects/android-parking-system/parking_system/app/src/main/res/layout/parking_window.xml" value="0.3875" />
         <entry key="..\:/new/android-parking-system/parking_system/app/src/main/res/layout/activity_join.xml" value="0.2635416666666667" />
         <entry key="..\:/new/android-parking-system/parking_system/app/src/main/res/layout/activity_main.xml" value="0.3333333333333333" />
-        <entry key="..\:/new/android-parking-system/parking_system/app/src/main/res/layout/activity_reservation_main_menu.xml" value="0.25729166666666664" />
         <entry key="..\:/new/android-parking-system/parking_system/app/src/main/res/layout/finding_id.xml" value="0.35520833333333335" />
         <entry key="..\:/new/android-parking-system/parking_system/app/src/main/res/layout/finding_password.xml" value="0.2682291666666667" />
         <entry key="..\:/new/android-parking-system/parking_system/app/src/main/res/layout/fragment_join.xml" value="0.278125" />
