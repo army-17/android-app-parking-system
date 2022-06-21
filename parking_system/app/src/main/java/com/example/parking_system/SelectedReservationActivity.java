@@ -3,6 +3,7 @@ package com.example.parking_system;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -191,9 +192,9 @@ public class SelectedReservationActivity extends AppCompatActivity {
 
                     intent = new Intent(getApplicationContext(),  CurrentMapsActivity.class);
                     String sendParking_seq = parking_seqDB;
-                    Log.d("intent", sendParking_seq);
+ //                   Log.d("intent", sendParking_seq);
                     intent.putExtra("parking_seq", sendParking_seq);
-                    Log.d("intent", intent.getStringExtra(sendParking_seq));
+//                    Log.d("intent", intent.getStringExtra(sendParking_seq));
 
                     break;
 
@@ -233,9 +234,51 @@ public class SelectedReservationActivity extends AppCompatActivity {
             }
         });
 
+        buttonCancelReservation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(SelectedReservationActivity.this);
+
+                builder
+                        .setTitle("예약취소")
+                        .setMessage("정말 예약을 취소하시겠습니까?")
+                        .setPositiveButton("예", new DialogInterface.OnClickListener() {
+//                            List<ReserveData> list = new ArrayList<ReserveData>();
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                try {
+                                    new Task2().execute();
+
+                                    Log.d("reserve_seq", reserve_seq);
+
+                                    //                       Intent intent = new Intent(getApplicationContext(), ReservationMainMenu.class);
+                                    //                       intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    //                       startActivity(intent);
+
+                                    Intent intent = new Intent(getApplicationContext(), ReservationMainMenu.class);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    startActivity(intent);
+                                }
+                                catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+
+                            }
+                        })
+                        .setNegativeButton("아니오", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                AlertDialog cancelDialog = builder.create();
+                cancelDialog.show();
+            }
+        });
+
     }
 
-    //TODO: buttons: cancel
 
 
 
@@ -284,12 +327,14 @@ public class SelectedReservationActivity extends AppCompatActivity {
             try {
 
                 String str;
-                serverIp += "?reserve_seq=" + param;
+                serverIp += "?reserve_seq=" + reserve_seq;
+
+                Log.d("serverIp", serverIp);
 
                 URL url = new URL(serverIp);
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-                conn.setRequestMethod("PUT");  //수정하고자 하면 POST, PUT-> 데이터를 DB 올리겠다.
+                conn.setRequestMethod("POST");  //수정하고자 하면 POST, PUT-> 데이터를 DB 올리겠다.
                 OutputStreamWriter osw = new OutputStreamWriter(conn.getOutputStream());
                 osw.write(sendMsg);
                 osw.flush();
