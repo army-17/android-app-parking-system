@@ -121,11 +121,9 @@ public class MainActivity extends AppCompatActivity {
                     String rst = String.valueOf(new Task(serverIp, paramList).execute().get());
 
                     Log.d("member", rst);
-                    //JSONObject json = new JSONObject(rst);
-                    //int member_seq = Integer.parseInt(json.getString("member_seq"));
+
                     int sequence = Integer.parseInt(rst);
-                    //String m = String.valueOf(sequence);
-                    //Log.d("membSEQ",m);
+
                     LogedMemberSeq.setLogin_member_seq(sequence);
                     int member_Seq = LogedMemberSeq.getLogin_member_seq();
 
@@ -134,20 +132,9 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(intent2);
                     }
 
-
-
-
                 } catch (Exception e){
                     e.printStackTrace();
                 }
-
-            /*if(member.login_member_seq != null){
-                Intent intent2 = new Intent(getApplicationContext(), ReservationMainMenu.class);
-                startActivity(intent2);
-
-            } */
-
-
 
             }
         });
