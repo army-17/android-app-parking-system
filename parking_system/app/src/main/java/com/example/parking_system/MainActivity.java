@@ -130,6 +130,7 @@ public class MainActivity extends AppCompatActivity {
 
                     if(member_Seq != 0){
                         Intent intent2 = new Intent(getApplicationContext(), ReservationMainMenu.class);
+                        intent2.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent2);
                     }
 
