@@ -105,6 +105,8 @@ public class MainActivity extends AppCompatActivity {
         btnLog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+
                 try {
 
                     String[] key_list = new String[2];
@@ -119,15 +121,21 @@ public class MainActivity extends AppCompatActivity {
                     String rst = String.valueOf(new Task(serverIp, paramList).execute().get());
 
                     Log.d("member", rst);
-                    JSONObject json = new JSONObject(rst);
-                  
-                    LogedMemberSeq member = new LogedMemberSeq();
-                    member.login_member_seq = member_seq;
 
+                    int sequence = Integer.parseInt(rst);
+
+                    LogedMemberSeq.setLogin_member_seq(sequence);
+                    int member_Seq = LogedMemberSeq.getLogin_member_seq();
+
+                    if(member_Seq != 0){
+                        Intent intent2 = new Intent(getApplicationContext(), ReservationMainMenu.class);
+                        startActivity(intent2);
+                    }
 
                 } catch (Exception e){
                     e.printStackTrace();
                 }
+
             }
         });
 
