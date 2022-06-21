@@ -2,6 +2,8 @@ package com.example.parking_system;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -21,6 +23,7 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.sql.Array;
@@ -236,6 +239,9 @@ public class SelectedReservationActivity extends AppCompatActivity {
 
 
 
+
+
+
     public class Task extends AsyncTask<Void, Void, String> {
 
         String sendMsg="", receiveMsg;
@@ -266,5 +272,45 @@ public class SelectedReservationActivity extends AppCompatActivity {
             return receiveMsg;
         }
 
+    }
+    //예약취소
+    public class Task2 extends AsyncTask<String, Void, String> {
+
+        String sendMsg="", receiveMsg;
+        String serverIp = "https://android-parking-system.toast.paas-ta.com/reserve/cancel"; // 연결할 jsp주소
+
+        @Override
+        protected String doInBackground(String... param) {
+            try {
+
+                String str;
+                serverIp += "?reserve_seq=" + param;
+
+                URL url = new URL(serverIp);
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                conn.setRequestMethod("PUT");  //수정하고자 하면 POST, PUT-> 데이터를 DB 올리겠다.
+                OutputStreamWriter osw = new OutputStreamWriter(conn.getOutputStream());
+                osw.write(sendMsg);
+                osw.flush();
+
+                if (conn.getResponseCode() == conn.HTTP_OK) {
+                    InputStreamReader tmp = new InputStreamReader(conn.getInputStream(), "UTF-8");
+                    BufferedReader reader = new BufferedReader(tmp);
+                    StringBuffer buffer = new StringBuffer();
+                    while ((str = reader.readLine()) != null) {
+                        buffer.append(str);
+                    }
+                    receiveMsg = buffer.toString();
+                } else {
+                    Log.i("통신 결과", conn.getResponseCode() + "에러");
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return receiveMsg;
+
+        }
     }
 }
