@@ -136,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
                     //String sequence4 = String.valueOf(member_Seq);
                     //Log.d("dddd",sequence4);
 
-                    if(LogedMemberSeq.getLogin_member_seq() != 0 ){
+                        if(LogedMemberSeq.getLogin_member_seq() != 0 ){
                         Intent intent2 = new Intent(getApplicationContext(), ReservationMainMenu.class);
                         intent2.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent2);
