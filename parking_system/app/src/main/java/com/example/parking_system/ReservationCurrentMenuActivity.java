@@ -5,6 +5,7 @@ import androidx.core.widget.TextViewOnReceiveContentListener;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -138,9 +139,42 @@ public class ReservationCurrentMenuActivity extends AppCompatActivity {
 
                     for (int i = 0; i <= position; i++) {
 
-//                        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-//                        fragmentTransaction.add()
-//                        listReserveData[i]
+                        Intent intent = new Intent(view.getContext(), SelectedReservationActivity.class);
+
+                        String intentReserve_seq = Integer.toString(listReserveData[i].getReserve_seq());
+                        String intentMember_seq = Integer.toString(listReserveData[i].getMember_seq());
+                        String intentParking_seq = Integer.toString(listReserveData[i].getParking_seq());
+                        String intentTotal_fee = Integer.toString(listReserveData[i].getTotal_fee());
+                        String intentParking_name = listReserveData[i].getParking_name();
+                        String intentLotcode = listReserveData[i].getLotcode();
+                        String intentReserve_start_date = listReserveData[i].getReserve_start_date();
+                        String intentReserve_start_time = listReserveData[i].getReserve_start_time();
+                        String intentReserve_end_date = listReserveData[i].getReserve_end_date();
+                        String intentReserve_end_time = listReserveData[i].getReserve_end_time();
+
+                        Log.d("intent", intentReserve_seq);
+                        Log.d("intent", intentMember_seq);
+                        Log.d("intent", intentParking_seq);
+                        Log.d("intent", intentTotal_fee);
+                        Log.d("intent", intentParking_name);
+                        Log.d("intent", intentLotcode);
+                        Log.d("intent", intentReserve_start_date);
+                        Log.d("intent", intentReserve_start_time);
+                        Log.d("intent", intentReserve_end_date);
+                        Log.d("intent", intentReserve_end_time);
+
+                        intent.putExtra("intentReserve_seq", intentReserve_seq);
+                        intent.putExtra("intentMember_seq", intentMember_seq);
+                        intent.putExtra("intentParking_seq", intentParking_seq);
+                        intent.putExtra("intentTotal_fee", intentTotal_fee);
+                        intent.putExtra("intentParking_name", intentParking_name);
+                        intent.putExtra("intentLotcode", intentLotcode);
+                        intent.putExtra("intentReserve_start_date", intentReserve_start_date);
+                        intent.putExtra("intentReserve_start_time", intentReserve_start_time);
+                        intent.putExtra("intentReserve_end_date", intentReserve_end_date);
+                        intent.putExtra("intentReserve_end_time", intentReserve_end_time);
+
+                        startActivity(intent);
 
                     }
                 } catch (Exception e) {
