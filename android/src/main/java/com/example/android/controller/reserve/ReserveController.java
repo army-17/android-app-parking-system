@@ -34,8 +34,16 @@ public class ReserveController {
 	
 	@PostMapping("/insert")
 	public int insertReserve(@RequestParam("member_seq") int member_seq, 
-			@RequestParam("parking_seq") int parking_seq) {
-		return mapper.inserReserve(member_seq, parking_seq);
+			@RequestParam("parking_seq") int parking_seq,
+			@RequestParam("total_fee") int total_fee,
+			@RequestParam("parking_name") String parking_name,
+			@RequestParam("lotcode") String lotcode,
+			@RequestParam("reserve_start_date") String reserve_start_date,
+			@RequestParam("reserve_start_time") String reserve_start_time,
+			@RequestParam("reserve_end_date") String reserve_end_date,
+			@RequestParam("reserve_end_time") String reserve_end_time) {
+		return mapper.inserReserve(member_seq, parking_seq, total_fee, parking_name, 
+				lotcode, reserve_start_date, reserve_start_time, reserve_end_date, reserve_end_time);
 	}
 	
 	@PostMapping("/cancel")
