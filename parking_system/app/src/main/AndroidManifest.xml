@@ -30,8 +30,11 @@
         android:theme="@style/Theme.Parking_system"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".SelectedReservationActivity"
+            android:name=".MainActivitytemp"
             android:exported="false" />
+        <activity
+            android:name=".SelectedReservationActivity"
+            android:exported="true" />
         <activity
             android:name=".ReservationMainMenu"
             android:exported="true" />

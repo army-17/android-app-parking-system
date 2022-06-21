@@ -103,10 +103,13 @@ public class MainActivity extends AppCompatActivity {
                     Log.d("member", rst);
                     JSONObject json = new JSONObject(rst);
                     int member_seq = Integer.parseInt(json.getString("member_seq"));
+                    
+                    /*Intent intent = new Intent(getApplicationContext(), ReservationMenuActivity.class);
+                    startActivity(intent);*/
 
-                    LogedMemberSeq member = new LogedMemberSeq();
-                    member.login_member_seq = member_seq;
-
+                    MemberData memberData = new MemberData();
+                    //memberData.setLoginMemberSeq(member_seq);
+                
                 } catch (Exception e){
                     e.printStackTrace();
                 }
