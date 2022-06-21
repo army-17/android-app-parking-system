@@ -5,7 +5,7 @@ public class MemberData {
     private String car_num;
     private String member_id;
     private String password;
-
+  
     public MemberData()  {}
 
     public MemberData(String member_name, String car_num, String member_id, String password){
@@ -47,6 +47,5 @@ public class MemberData {
     public void setPassword(String password){
         this.password = password;
     }
-
 
 }

@@ -30,19 +30,19 @@
         android:theme="@style/Theme.Parking_system"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".JoinActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:name=".SelectedReservationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ReservationMainMenu"
+            android:exported="true" />
         <activity
             android:name=".ReserveActivity"
             android:exported="true" />
         <activity
             android:name=".MapsActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ReservationCurrentMenuActivity"
             android:exported="true" />
         <!--
              TODO: Before you run your application, you need a Google Maps API key.
@@ -60,7 +60,6 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="YOUR_API_KEY" />
         -->
-
         <activity
             android:name=".MainActivity"
             android:exported="true">
