@@ -3,7 +3,6 @@ package com.example.parking_system;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -26,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
     Button btnId, btnPw, btnLog;
     Dialog dialog_id, dialog_pw;
-    TextView tv5;
+    TextView btnJoin;
 
 
     @Override
@@ -34,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        tv5 = findViewById(R.id.textView5);
+        btnJoin = findViewById(R.id.textView5);
 
         btnId = findViewById(R.id.btnId);
         btnPw = findViewById(R.id.btnPw);
@@ -56,21 +55,38 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 showDialogId();
+                Button btn5 = dialog_id.findViewById(R.id.PwClose);
+                btn5.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog_id.dismiss();
+                    }
+                });
 
             }
         });
 
+
+        //비밀번호 찾기
         btnPw.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 showDialogPw();
+
+                Button pwClose = dialog_pw.findViewById(R.id.PwClose);
+                pwClose.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog_pw.dismiss();
+                    }
+                });
 
 
             }
         });
 
-        tv5.setOnClickListener(new View.OnClickListener() {
+
+        btnJoin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), JoinActivity.class);
@@ -84,9 +100,13 @@ public class MainActivity extends AppCompatActivity {
         logs[0] = findViewById(R.id.logId);
         logs[1] = findViewById(R.id.logPw);
 
+        //로그인하기
+
         btnLog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+
                 try {
 
                     String[] key_list = new String[2];
@@ -101,18 +121,22 @@ public class MainActivity extends AppCompatActivity {
                     String rst = String.valueOf(new Task(serverIp, paramList).execute().get());
 
                     Log.d("member", rst);
-                    JSONObject json = new JSONObject(rst);
-                    int member_seq = Integer.parseInt(json.getString("member_seq"));
-                    
-                    /*Intent intent = new Intent(getApplicationContext(), ReservationMenuActivity.class);
-                    startActivity(intent);*/
 
-                    MemberData memberData = new MemberData();
-                    //memberData.setLoginMemberSeq(member_seq);
-                
+
+                    int sequence = Integer.parseInt(rst);
+
+                    LogedMemberSeq.setLogin_member_seq(sequence);
+                    int member_Seq = LogedMemberSeq.getLogin_member_seq();
+
+                    if(member_Seq != 0){
+                        Intent intent2 = new Intent(getApplicationContext(), ReservationMainMenu.class);
+                        startActivity(intent2);
+                    }
+
                 } catch (Exception e){
                     e.printStackTrace();
                 }
+
             }
         });
 
@@ -166,6 +190,8 @@ public class MainActivity extends AppCompatActivity {
             return receiveMsg;
         }
     }
+
+    //아이디찾기 다이얼로그
     public void showDialogId(){
         dialog_id.show();
 
@@ -188,13 +214,18 @@ public class MainActivity extends AppCompatActivity {
                         paramList += key_list[i];
                         paramList += findIds[i].getText().toString().trim();
                     }
-                    String rst = String.valueOf(new Task(serverIp, paramList).execute().get());
+                    String rst = String.valueOf(new Task(serverIp, paramList).execute(resultId.getText().toString().trim()).get());
 
-                    JSONObject json = new JSONObject(rst);
-                    String id = json.getString("member_id");
-                    Log.d("id", rst);
-                    String temp = "당신의 아이디는 "+id;
-                    resultId.setText(temp);
+                    if(rst.length()==0 || rst == null){
+                        String temp2 = "해당 아이디가 존재하지 않습니다." +rst ;
+                        resultId.setText(temp2);
+
+                    } else {
+                        String temp = "당신의 아이디는 " + rst;
+                        resultId.setText(temp);
+
+
+                    }
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -204,8 +235,50 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    //비밀번호 찾기 다이얼로그
     public void showDialogPw(){
         dialog_pw.show();
+
+        EditText[] findPws = new EditText[3];
+        findPws[0] = dialog_pw.findViewById(R.id.findPw_Name);
+        findPws[1] = dialog_pw.findViewById(R.id.findPw_Car);
+        findPws[2] = dialog_pw.findViewById(R.id.findPw_Id);
+
+        Button findPw = dialog_pw.findViewById(R.id.findPw);
+        TextView findPw_Result = dialog_pw.findViewById(R.id.findPw_Result);
+
+        findPw.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try{
+                    String[] key_list = new String[3];
+                    key_list[0] = "member_name=";
+                    key_list[1] = "&car_num=";
+                    key_list[2] = "&member_id=";
+                    String serverIp = "https://android-parking-system.toast.paas-ta.com/member/findPwd?";
+                    String paramList = "";
+                    for (int i = 0; i < 3; i++){
+                        paramList += key_list[i];
+                        paramList += findPws[i].getText().toString().trim();
+                    }
+                    String rst = String.valueOf(new Task(serverIp, paramList).execute(findPw_Result.getText().toString().trim()).get());
+
+                    if(rst.length()==0 || rst == null){
+                        String temp2 = "해당 ID의 비밀번호가 존재하지 않습니다." +rst ;
+                        findPw_Result.setText(temp2);
+
+                    } else {
+                        String temp = "당신의 비밀번호는 " + rst;
+                        findPw_Result.setText(temp);
+
+
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
     }
 
