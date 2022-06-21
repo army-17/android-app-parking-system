@@ -12,6 +12,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONObject;
 
@@ -48,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
         dialog_pw.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog_pw.setContentView(R.layout.finding_password);
 
+        LogedMemberSeq.setLogin_member_seq(0);
+        Log.d("LogedMemberSeq", Integer.toString(LogedMemberSeq.getLogin_member_seq()));
 
 
         //아이디 찾기
@@ -118,6 +121,7 @@ public class MainActivity extends AppCompatActivity {
                         paramList += key_list[i];
                         paramList += logs[i].getText().toString().trim();
                     }
+
                     String rst = String.valueOf(new Task(serverIp, paramList).execute().get());
 
                     Log.d("member", rst);
@@ -126,12 +130,20 @@ public class MainActivity extends AppCompatActivity {
                     int sequence = Integer.parseInt(rst);
 
                     LogedMemberSeq.setLogin_member_seq(sequence);
-                    int member_Seq = LogedMemberSeq.getLogin_member_seq();
+                    Log.d("LogedMemberSeq", Integer.toString(LogedMemberSeq.getLogin_member_seq()));
+//                    Integer member_Seq = LogedMemberSeq.getLogin_member_seq();
+//
+//                    String sequence4 = String.valueOf(member_Seq);
+//                    Log.d("dddd",sequence4);
 
-                    if(member_Seq != 0){
+                    if(rst ==null ){
+                        Toast.makeText(getApplicationContext(),"해당 아이디로 로그인할 수 없습니다!", Toast.LENGTH_SHORT).show();
+
+                  } else{
                         Intent intent2 = new Intent(getApplicationContext(), ReservationMainMenu.class);
                         intent2.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent2);
+
                     }
 
                 } catch (Exception e){
