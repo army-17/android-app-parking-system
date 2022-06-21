@@ -5,17 +5,7 @@ public class MemberData {
     private String car_num;
     private String member_id;
     private String password;
-
-    private static int login_member_seq;
-
-    public void setLoginMemberSeq(int login_member_seq) {
-        this.login_member_seq = login_member_seq;
-    }
-
-    public int getLoginMemberSeq(){
-        return this.login_member_seq;
-    }
-
+  
     public MemberData()  {}
 
     public MemberData(String member_name, String car_num, String member_id, String password){
@@ -57,6 +47,5 @@ public class MemberData {
     public void setPassword(String password){
         this.password = password;
     }
-
 
 }
