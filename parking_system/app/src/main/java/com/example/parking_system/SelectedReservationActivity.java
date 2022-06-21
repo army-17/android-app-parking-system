@@ -43,6 +43,8 @@ public class SelectedReservationActivity extends AppCompatActivity {
             reserve_end_date,
             reserve_end_time;
 
+    Intent intent;
+
     //                        parking_seq,
     //                        parking_name,
     //                        address,
@@ -187,6 +189,12 @@ public class SelectedReservationActivity extends AppCompatActivity {
                     lng = listParkingData.get(i).getLongitude();
                     latlng = new LatLng(lat, lng);
 
+                    intent = new Intent(getApplicationContext(),  CurrentMapsActivity.class);
+                    String sendParking_seq = parking_seqDB;
+                    Log.d("intent", sendParking_seq);
+                    intent.putExtra("parking_seq", sendParking_seq);
+                    Log.d("intent", intent.getStringExtra(sendParking_seq));
+
                     break;
 
                 }
@@ -213,38 +221,23 @@ public class SelectedReservationActivity extends AppCompatActivity {
         selectedEndTimeText.setText("종료 시간: " +reserve_end_time);
         selectedTotalFeeText.setText(total_fee + " 원");
 
-
-        //Reservation Cancel
-        buttonCancelReservation.setOnClickListener(new View.OnClickListener() {
+        Intent finalIntent = intent;
+        buttonSeeMap.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(SelectedReservationActivity.this);
+            public void onClick(View view) {
 
 
-                builder
-                        .setTitle("예약취소")
-                        .setMessage("정말 예약을 취소하시겠습니까?")
-                        .setPositiveButton("예", new DialogInterface.OnClickListener() {
-                            List<ReserveData> list = new ArrayList<ReserveData>();
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                new Task2().execute();
+                startActivity(finalIntent);
 
-                            }
-                        })
-                        .setNegativeButton("아니오", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        });
-                AlertDialog cancelDialog = builder.create();
-                cancelDialog.show();
+
             }
         });
+
     }
 
-    //TODO: buttons: mapfrag, cancel
+    //TODO: buttons: cancel
+
+
 
 
 
