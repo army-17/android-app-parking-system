@@ -34,8 +34,8 @@ public class ReservationCurrentMenuActivity extends AppCompatActivity {
 
     int member_seq; // TODO: member_seq here
     // TODO: get length() of reserveData, and put that as i in i.e. String[i] = listParkingNameText
-    String[] listParkingName, listStartDate, listStartTime, listLotcode;
-    ReserveData[] listReserveData;
+    ArrayList<String> listParkingName, listStartDate, listStartTime, listLotcode;
+    ArrayList<ReserveData> listReserveData;
 
     //ArrayList<String> names = new ArrayList<>();
     //별도 클래스에서 ReserveData 생성 필요, CookMap22, MapData.java
@@ -47,8 +47,17 @@ public class ReservationCurrentMenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reservation_current_menu);
 
+        LogedMemberSeq.setLogin_member_seq(1);
+        member_seq = LogedMemberSeq.getLogin_member_seq();
+
         // GET JSON ReserveDB
         List<com.example.parking_system.ReserveData> reserveData = new ArrayList<ReserveData>();
+
+        listReserveData = new ArrayList<ReserveData>();
+        listParkingName = new ArrayList<String>();
+        listStartDate = new ArrayList<String>();
+        listStartTime = new ArrayList<String>();
+        listLotcode = new ArrayList<String>();
 
         try {
             String rst = String.valueOf(new ReserveTask().execute().get());
@@ -93,7 +102,7 @@ public class ReservationCurrentMenuActivity extends AppCompatActivity {
                         reserve_end_time
                 ));
 
-                listReserveData[i] = new ReserveData(
+                listReserveData.add(new ReserveData(
                         reserve_seq,
                         member_seq,
                         parking_seq,
@@ -104,13 +113,13 @@ public class ReservationCurrentMenuActivity extends AppCompatActivity {
                         reserve_start_time,
                         reserve_end_date,
                         reserve_end_time
-                );
+                ));
 
 
-                listParkingName[i] = parking_name;
-                listStartDate[i] = reserve_start_date;
-                listStartTime[i] = reserve_start_time;
-                listLotcode[i] = lotcode;
+                listParkingName.add(parking_name);
+                listStartDate.add(reserve_start_date);
+                listStartTime.add(reserve_start_time);
+                listLotcode.add(lotcode);
 
             }
         }
@@ -141,16 +150,16 @@ public class ReservationCurrentMenuActivity extends AppCompatActivity {
 
                         Intent intent = new Intent(view.getContext(), SelectedReservationActivity.class);
 
-                        String intentReserve_seq = Integer.toString(listReserveData[i].getReserve_seq());
-                        String intentMember_seq = Integer.toString(listReserveData[i].getMember_seq());
-                        String intentParking_seq = Integer.toString(listReserveData[i].getParking_seq());
-                        String intentTotal_fee = Integer.toString(listReserveData[i].getTotal_fee());
-                        String intentParking_name = listReserveData[i].getParking_name();
-                        String intentLotcode = listReserveData[i].getLotcode();
-                        String intentReserve_start_date = listReserveData[i].getReserve_start_date();
-                        String intentReserve_start_time = listReserveData[i].getReserve_start_time();
-                        String intentReserve_end_date = listReserveData[i].getReserve_end_date();
-                        String intentReserve_end_time = listReserveData[i].getReserve_end_time();
+                        String intentReserve_seq = Integer.toString(listReserveData.get(i).getReserve_seq());
+                        String intentMember_seq = Integer.toString(listReserveData.get(i).getMember_seq());
+                        String intentParking_seq = Integer.toString(listReserveData.get(i).getParking_seq());
+                        String intentTotal_fee = Integer.toString(listReserveData.get(i).getTotal_fee());
+                        String intentParking_name = listReserveData.get(i).getParking_name();
+                        String intentLotcode = listReserveData.get(i).getLotcode();
+                        String intentReserve_start_date = listReserveData.get(i).getReserve_start_date();
+                        String intentReserve_start_time = listReserveData.get(i).getReserve_start_time();
+                        String intentReserve_end_date = listReserveData.get(i).getReserve_end_date();
+                        String intentReserve_end_time = listReserveData.get(i).getReserve_end_time();
 
                         Log.d("intent", intentReserve_seq);
                         Log.d("intent", intentMember_seq);
@@ -190,7 +199,7 @@ public class ReservationCurrentMenuActivity extends AppCompatActivity {
     public class ReserveTask extends AsyncTask<Void, Void, String> {
 
         String sendMsg="", receiveMsg;
-        String serverIp = "https://android-parking-system.toast.paas-ta.com/reserve/list" + member_seq; // 연결할 jsp주소
+        String serverIp = "https://android-parking-system.toast.paas-ta.com/reserve/list/" + member_seq; // 연결할 jsp주소
 
         @Override
         protected String doInBackground(Void ... voids) {
@@ -222,17 +231,17 @@ public class ReservationCurrentMenuActivity extends AppCompatActivity {
     public class ReservationListAdapter extends ArrayAdapter<String> {
 
         private final Activity context;
-        private final String[] listParkingName;
-        private final String[] listStartDate;
-        private final String[] listStartTime;
-        private final String[] listLotcode;
+        private final ArrayList<String> listParkingName;
+        private final ArrayList<String> listStartDate;
+        private final ArrayList<String> listStartTime;
+        private final ArrayList<String> listLotcode;
 
         public ReservationListAdapter(
                 Activity context,
-                String[] listParkingName,
-                String[] listStartDate,
-                String[] listStartTime,
-                String[] listLotcode) {
+                ArrayList<String> listParkingName,
+                ArrayList<String> listStartDate,
+                ArrayList<String> listStartTime,
+                ArrayList<String> listLotcode) {
             super(context, R.layout.reservations_list, listParkingName);
 
             this.context = context;
@@ -252,10 +261,10 @@ public class ReservationCurrentMenuActivity extends AppCompatActivity {
             TextView listStartTimeText = (TextView) rowView.findViewById(R.id.listStartTimeText);
             TextView listLotcodeText = (TextView) rowView.findViewById(R.id.listLotcodeText);
 
-            listParkingNameText.setText(listParkingName[position]);
-            listStartDateText.setText(listStartDate[position]);
-            listStartTimeText.setText(listStartTime[position]);
-            listLotcodeText.setText(listLotcode[position]);
+            listParkingNameText.setText(listParkingName.get(position));
+            listStartDateText.setText(listStartDate.get(position));
+            listStartTimeText.setText(listStartTime.get(position));
+            listLotcodeText.setText(listLotcode.get(position));
 
             return rowView;
         };

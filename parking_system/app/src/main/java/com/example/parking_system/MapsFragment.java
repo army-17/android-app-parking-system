@@ -187,10 +187,10 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                                 //이 두개를 예약화면에서 주차장DB에 대조해서 주차장 정보를 새로 불러냅니다
                                 //데이터를 마커에 저장할 수 있는 방법을 아시면 마커에 번들 저장 등의 방법으로 재구축
 
-                               /* Intent intent = new Intent(getActivity(), ReserveActivity.class);
+                                Intent intent = new Intent(getActivity(), ReserveActivity.class);
                                 intent.putExtra("parking_name", marker.getTitle().toString());
                                 intent.putExtra("latlng", marker.getPosition().toString());
-                                startActivity(intent); */
+                                startActivity(intent);
                             }
                         })
                         .setNegativeButton(R.string.reserve_no, new DialogInterface.OnClickListener() {

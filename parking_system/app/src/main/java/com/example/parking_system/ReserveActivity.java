@@ -36,6 +36,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 
+import javax.security.auth.login.LoginException;
+
 public class ReserveActivity extends AppCompatActivity {
 
     //parking
@@ -47,7 +49,8 @@ public class ReserveActivity extends AppCompatActivity {
     String totalFee;
 
     //member
-    int member_seq = 7; // TODO: member_seq here, temp placeholder 7
+    int member_seq = LogedMemberSeq.getLogin_member_seq(); // TODO: member_seq here, temp placeholder 7
+
     String member_name, car_num;
     TextView member_nameText, car_numText;
 
@@ -73,6 +76,7 @@ public class ReserveActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reserve);
 
+        Log.d("member_seq", Integer.toString(member_seq));
         //member gets
         //memberId = loggedMember.member_seq; // TODO: implement memberId across the app (static)
 //        member_nameText = findViewById(R.id.member_nameText);
@@ -300,7 +304,27 @@ public class ReserveActivity extends AppCompatActivity {
 
                 dateText.setText(selectedDate);
 
-                dateFlag = true;
+
+                //Calendar toDate = Calendar.getInstance();
+                //Calendar nowDate = Calendar.getInstance();
+                //toDate.set(<set-year>,<set-month>,<set-day>);
+                //if(!toDate.before(nowDate)) {
+                //    //display your report
+                //} else {
+                //    // don't display the report
+                //}
+
+                Calendar check = Calendar.getInstance();
+                Calendar now = Calendar.getInstance();
+                check.set(yearSelected, monthSelected, daySelected);
+                Log.d("calendar", check.toString());
+                Log.d("calendar", now.toString());
+                if(!now.before(check)) {
+                    Log.d("calendar", Boolean.toString(!check.before(now))); //the other way
+                    dateFlag = true;
+                } else {
+                    Toast.makeText(getApplicationContext(),"예약은 미래에만 가능합니다", Toast.LENGTH_SHORT).show();
+                }
 
                 try {
 
@@ -409,8 +433,8 @@ public class ReserveActivity extends AppCompatActivity {
                String selectedDuration = newVal + " 시간";
                durationText.setText(selectedDuration);
 
-               totalFee = "금액: " + (newVal*fee);
-               feeText.setText(totalFee);
+               totalFee = Integer.toString(newVal*fee);
+               feeText.setText("금액: " + totalFee);
 
                durationFlag = true;
 
@@ -508,12 +532,13 @@ public class ReserveActivity extends AppCompatActivity {
                        String rst = String.valueOf(new ReserveTask().execute(params).get());
                        Log.d("rst", String.valueOf(params));
 
-                       // TODO: test after backend fix
 
-                       // TODO:
-                       //  Intent intent = new Intent(getApplicationContext(), ReservationMainMenu.class);
-                       //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                       //startActivity(intent);
+                       Intent intent = new Intent(getApplicationContext(), ReservationMainMenu.class);
+                       intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                       startActivity(intent);
+
+                   } else {
+                       Toast.makeText(getApplicationContext(), "설정을 확인하여 주십시오", Toast.LENGTH_SHORT).show();
                    }
 
                }
@@ -562,7 +587,7 @@ public class ReserveActivity extends AppCompatActivity {
     public class ReserveTask extends AsyncTask<String, Void, String> {
 
         String sendMsg = "", receiveMsg;
-        String serverIp = "https://android-parking-system.toast.paas-ta.com/reserve/list/";
+        String serverIp = "https://android-parking-system.toast.paas-ta.com/reserve/insert";
 
         @Override
         protected String doInBackground(String... params) {
@@ -581,8 +606,8 @@ public class ReserveActivity extends AppCompatActivity {
                 // String reserve_end_date = yMd endDate
                 // String reserve_end_time = Hm endTime
                 serverIp +=(
-                        params[0] // params[0] is member_seq
-                        +"?parking_seq=" + params[1]
+                        "?member_seq=" + params[0] // params[0] is member_seq
+                        +"&parking_seq=" + params[1]
                         +"&total_fee=" + params[2]
                         +"&parking_name=" + params[3]
                         +"&lotcode=" + params[4]
@@ -595,7 +620,7 @@ public class ReserveActivity extends AppCompatActivity {
                 URL url = new URL(serverIp);
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-                conn.setRequestMethod("PUT"); //use "POST" for append
+                conn.setRequestMethod("POST"); //use "POST" for append
                 OutputStreamWriter osw = new OutputStreamWriter(conn.getOutputStream());
                 osw.write(sendMsg);
                 osw.flush();

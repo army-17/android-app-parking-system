@@ -122,6 +122,7 @@ public class MainActivity extends AppCompatActivity {
 
                     Log.d("member", rst);
 
+
                     int sequence = Integer.parseInt(rst);
 
                     LogedMemberSeq.setLogin_member_seq(sequence);
