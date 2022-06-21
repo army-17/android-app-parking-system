@@ -47,7 +47,6 @@ public class ReservationCurrentMenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reservation_current_menu);
 
-        LogedMemberSeq.setLogin_member_seq(1);
         member_seq = LogedMemberSeq.getLogin_member_seq();
 
         // GET JSON ReserveDB

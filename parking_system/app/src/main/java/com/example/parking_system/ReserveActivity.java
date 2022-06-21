@@ -304,6 +304,7 @@ public class ReserveActivity extends AppCompatActivity {
 
                 dateText.setText(selectedDate);
 
+                dateFlag = true;
 
                 //Calendar toDate = Calendar.getInstance();
                 //Calendar nowDate = Calendar.getInstance();
@@ -314,17 +315,17 @@ public class ReserveActivity extends AppCompatActivity {
                 //    // don't display the report
                 //}
 
-                Calendar check = Calendar.getInstance();
-                Calendar now = Calendar.getInstance();
-                check.set(yearSelected, monthSelected, daySelected);
-                Log.d("calendar", check.toString());
-                Log.d("calendar", now.toString());
-                if(!now.before(check)) {
-                    Log.d("calendar", Boolean.toString(!check.before(now))); //the other way
-                    dateFlag = true;
-                } else {
-                    Toast.makeText(getApplicationContext(),"예약은 미래에만 가능합니다", Toast.LENGTH_SHORT).show();
-                }
+//                Calendar check = Calendar.getInstance();
+//                Calendar now = Calendar.getInstance();
+//                check.set(yearSelected, monthSelected, daySelected);
+//                Log.d("calendar", check.toString());
+//                Log.d("calendar", now.toString());
+//                if(!check.before(now)) {
+//                    Log.d("calendar", Boolean.toString(!check.before(now))); //the other way
+//                    dateFlag = true;
+//                } else {
+//                    Toast.makeText(getApplicationContext(),"예약은 미래에만 가능합니다", Toast.LENGTH_SHORT).show();
+//                }
 
                 try {
 
