@@ -30,8 +30,14 @@
         android:theme="@style/Theme.Parking_system"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".ReservationMainMenu"
-            android:exported="true" />
+            android:name=".JoinActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".ReserveActivity"
             android:exported="true" />
