@@ -7,9 +7,14 @@ public class Reserve {
 	private int reserve_seq;
 	private int member_seq;
 	private int parking_seq;
-	private LocalDateTime reg_dt;
-	private char is_del_yn;
-
+	private int total_fee;
+	private String parking_name;
+	private String lotcode;
+	private String reserve_start_date;
+	private String reserve_start_time;
+	private String reserve_end_date;
+	private String reserve_end_time;
+	
 	public int getReserve_seq() {
 		return reserve_seq;
 	}
@@ -28,19 +33,47 @@ public class Reserve {
 	public void setParking_seq(int parking_seq) {
 		this.parking_seq = parking_seq;
 	}
-	public LocalDateTime getReg_dt() {
-		return reg_dt;
+	public int getTotal_fee() {
+		return total_fee;
 	}
-	public void setReg_dt(LocalDateTime reg_dt) {
-		this.reg_dt = reg_dt;
+	public void setTotal_fee(int total_fee) {
+		this.total_fee = total_fee;
 	}
-	public char getIs_del_yn() {
-		return is_del_yn;
+	public String getParking_name() {
+		return parking_name;
 	}
-	public void setIs_del_yn(char is_del_yn) {
-		this.is_del_yn = is_del_yn;
+	public void setParking_name(String parking_name) {
+		this.parking_name = parking_name;
+	}
+	public String getLotcode() {
+		return lotcode;
+	}
+	public void setLotcode(String lotcode) {
+		this.lotcode = lotcode;
+	}
+	public String getReserve_start_date() {
+		return reserve_start_date;
+	}
+	public void setReserve_start_date(String reserve_start_date) {
+		this.reserve_start_date = reserve_start_date;
+	}
+	public String getReserve_start_time() {
+		return reserve_start_time;
+	}
+	public void setReserve_start_time(String reserve_start_time) {
+		this.reserve_start_time = reserve_start_time;
+	}
+	public String getReserve_end_date() {
+		return reserve_end_date;
+	}
+	public void setReserve_end_date(String reserve_end_date) {
+		this.reserve_end_date = reserve_end_date;
+	}
+	public String getReserve_end_time() {
+		return reserve_end_time;
+	}
+	public void setReserve_end_time(String reserve_end_time) {
+		this.reserve_end_time = reserve_end_time;
 	}
 
-	
-	
 }
