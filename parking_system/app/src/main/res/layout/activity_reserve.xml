@@ -31,6 +31,7 @@
         android:layout_height="wrap_content"
         android:text="예약하기"
         android:textAlignment="center"
+        android:textColor="#2F2F2F"
         app:layout_constraintBottom_toTopOf="@+id/feeText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -100,7 +101,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:text="예약날짜"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                android:textColor="#2F2F2F" />
 
             <Button
                 android:id="@+id/startTimeButton"
@@ -108,7 +110,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:text="시작시간"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                android:textColor="#2F2F2F" />
 
             <Button
                 android:id="@+id/durationButton"
@@ -116,7 +119,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:text="예약기간"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                android:textColor="#2F2F2F" />
 
         </LinearLayout>
 
